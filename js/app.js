@@ -35,21 +35,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderTasks() {
         taskList.innerHTML = '';
-        tasks.forEach(
-            task => {
-                const li = document.createElement('li');
-                li.innerHTML =
-                    '<span> ' + task.text + '</span>' +
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.style.backgroundColor = task.complete ? 'lightgreen' : '';
+            // Contenido del texto
+            let content = '<span>' + task.text + '</span>';
+            // Solo mostrar botones si la tarea no está completada
+            if (!task.complete) {
+                content +=
                     '<div>' +
-                    '<button class ="edit-btn" onclick="editTask (' + task.id + ')">' +
-                    'Editar </button>&nbsp' +
-                    '<button class="delete-btn" onclick="deleteTask (' + task.id + ')">' +
-                    'Eliminar </button>' +
+                    '<button class="edit-btn" onclick="editTask(' + task.id + ')">Editar</button>&nbsp;' +
+                    '<button class="delete-btn" onclick="deleteTask(' + task.id + ')">Eliminar</button>&nbsp;' +
+                    '<button class="ok-btn" onclick="okTask(' + task.id + ')">Completado</button>' +
                     '</div>';
-                taskList.appendChild(li);
             }
-        );
-    };
+            li.innerHTML = content;
+            taskList.appendChild(li);
+        });
+    }
 
     window.deleteTask = function (id) {
         tasks = tasks.filter(task => task.id !== id);
@@ -64,9 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
             taskForm.innerText = "Guardar";
             isEditing = true;
             editingId = et.id;
-
         }
     }
 
+    window.okTask = function (id) {
+        tasks = tasks.map(task =>
+            task.id === id ? { ...task, complete: true } : task
+        ); // Deshabilita todos los botones
+        renderTasks();
+    }
+
+
 });
+
+
 
