@@ -13,7 +13,7 @@
 <body>
     <main>
         <h1>Gestor de tareas</h1>
-        <FORm action="server/task/index.php" method="post" class="my-form">
+        <FORm action="server/task/create.php" method="post" class="my-form">
             <!--
             title
             description
@@ -23,12 +23,9 @@
             category_id
             -->
             <label for="title" class="field">
-                <span class="required-field"> </span>
-                <span>title</span>
+                <span><span class="req-field">*</span> title</span>
                 <input type="text" name="title" placeholder="title" id="title" required />
             </label>
-
-
 
             <label for="description" class="field">
                 <span>description</span>
@@ -46,14 +43,12 @@
             </label>
 
             <label for="user_id" class="field">
-                <span class="required-field"> </span>
-                <span>user_id</span>
+                <span><span class="req-field">*</span>user_id</span>
                 <input type="number" name="user_id" placeholder="user_id" id="user_id" required />
             </label>
 
             <label for="category_id" class="field">
-                <span class="required-field"> </span>
-                <span>category_id</span>
+                <span><span class="req-field">*</span>category_id</span>
                 <input type="number" name="category_id" placeholder="category_id" id="category_id" required />
             </label>
 
