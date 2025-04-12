@@ -10,19 +10,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         trim($_POST['category_id']) != ''
     ) {
 
-        $q = "INSERT INTO task.task(title, description, due_date, complete, user_id, category_id)";
-        $q = $q . " VALUES (:title, :description, :due_date, :complete, :user_id, :category_id );";
-        $stmt = $db->prepare($q);
-        $stmt->execute([
-            "title" => $_POST["title"],
-            "description" => $_POST["description"],
-            "due_date" => $_POST["due_date"],
-            "complete" => $_POST["complete"],
-            "user_id" => $_POST["user_id"],
-            "category_id" => $_POST["category_id"]
-        ]);
+        try {
+            $q = "INSERT INTO task.task(title, description, due_date, complete, user_id, category_id)";
+            $q = $q . " VALUES (:title, :description, :due_date, :complete, :user_id, :category_id );";
+            $stmt = $db->prepare($q);
+            $stmt->execute([
+                "title" => $_POST["title"],
+                "description" => $_POST["description"],
+                "due_date" => $_POST["due_date"],
+                "complete" => $_POST["complete"],
+                "user_id" => $_POST["user_id"],
+                "category_id" => $_POST["category_id"]
+            ]);
+        } catch (PDOException $e) {
+            echo 'Error en la conexión ' . $e->getMessage();
+            exit();
+        }
 
-        header("Location: /full-task-manager-Github/");
+        header("Location: /full-task-manager/");
 
     } else {
         echo 'Nooooooooooo pasa';

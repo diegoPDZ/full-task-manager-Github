@@ -8,5 +8,4 @@ echo "contenido que viajo por POST";
 echo "<br><br>";
 var_dump($_POST);
 
-
 ?>
